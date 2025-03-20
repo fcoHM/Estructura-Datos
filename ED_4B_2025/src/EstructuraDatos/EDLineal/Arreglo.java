@@ -420,4 +420,24 @@ public class Arreglo implements VectorFijo{
         throw new UnsupportedOperationException("Unimplemented method 'retenerLista'");
     }
 
+
+
+
+//----------------------------para practica 5 - audios-------------------------
+
+public void cargarArreglo(double[] buffer){
+    this.indiceSuperior = buffer.length-1; //ajuste del indice superior
+    this.capacidad = buffer.length; // ajuste de la capacidad
+    this.datos = new Object[buffer.length]; //creacion de arreglo independiente para los valores de buffer
+
+    //para copiar los datos de buffer a datos
+    for(int elementoBuffer =0; elementoBuffer<buffer.length;elementoBuffer++){
+        this.datos[elementoBuffer] = buffer[elementoBuffer];
+    }
+
 }
+
+
+
+
+}// fin clase

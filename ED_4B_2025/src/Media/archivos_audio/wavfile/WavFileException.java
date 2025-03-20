@@ -1,4 +1,4 @@
-package audio.wavfile;
+package Media.archivos_audio.wavfile;
 
 public class WavFileException extends Exception
 {
