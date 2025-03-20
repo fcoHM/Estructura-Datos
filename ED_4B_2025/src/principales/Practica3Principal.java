@@ -1,6 +1,6 @@
 package principales;
 
-import EstructuraDatos.EDLineal.Arreglo;
+//import EstructuraDatos.EDLineal.Arreglo;
 import EstructuraDatos.EDLineal.ArregloOrdenado;
 import EstructuraDatos.EDLineal.ListaDatos;
 import entradaSalida.Salida;

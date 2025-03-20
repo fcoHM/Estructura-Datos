@@ -1,7 +1,7 @@
 package principales;
 
 import EstructuraDatos.EDLineal.Arreglo;
-import entradaSalida.Salida;
+//import entradaSalida.Salida;
 
 public class Practica1Principal {
     public static void main(String[] args) {

@@ -1,6 +1,6 @@
 package principales;
 
-import registros.Agricola.Campesino;
+//import registros.Agricola.Campesino;
 import registros.Agricola.EmpleadosGranja;
 
 public class Practica2Principal {

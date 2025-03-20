@@ -32,4 +32,7 @@ public interface ListaDatos {
 
     public boolean poner(int indice, Object info);
 
+
+    public Object verFinal();
+
 }

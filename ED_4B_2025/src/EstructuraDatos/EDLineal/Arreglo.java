@@ -421,7 +421,15 @@ public class Arreglo implements VectorFijo{
     }
 
 
-
+// ------------------ para pila fija ------------------
+@Override
+public Object verFinal() { // definir en iterface
+    if(vacio()==false){
+        return this.datos[indiceSuperior];
+    }else{
+        return false;
+    }
+}
 
 //----------------------------para practica 5 - audios-------------------------
 
