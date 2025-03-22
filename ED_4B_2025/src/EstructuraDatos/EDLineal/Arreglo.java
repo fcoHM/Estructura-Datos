@@ -445,6 +445,13 @@ public void cargarArreglo(double[] buffer){
 
 }
 
+public double[] leerArreglo(){
+    double[] copiaArreglo = new double[this.capacidad];
+    for(int elementoArreglo=0; elementoArreglo <= indiceSuperior;elementoArreglo++){
+        copiaArreglo[elementoArreglo] = (double)this.obtener(elementoArreglo);
+    }
+    return copiaArreglo;
+}
 
 
 
