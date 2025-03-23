@@ -1,6 +1,8 @@
 package Media.archivos_audio;
 
 import java.io.File;
+
+import EstructuraDatos.EDLineal.Arreglo;
 import EstructuraDatos.EDLineal.ArregloNumerico;
 import Media.archivos_audio.wavfile.WavFile;
 import entradaSalida.ArchivoTextoD;
@@ -48,7 +50,7 @@ public class AudioFileRecord {
             bufferNumerico.cargarArreglo(buffer);
         
             if(bufferNumerico != null){ // revisar que el buffer tiviera un contenido
-                Salida.salidaPorDefecto("se cargo el audio");
+                Salida.salidaPorDefecto("se cargo el audio\n");
             }
 
             wavFileR.close();
@@ -166,7 +168,7 @@ public class AudioFileRecord {
 
 
 
-
+    //creau un efecto fantamagorico con la alargacion de los audios y relentisacion 
     public ArregloNumerico retrasarPista(int desAceleracion) {
         if (desAceleracion <= 1) {
             return null;
@@ -199,5 +201,44 @@ public class AudioFileRecord {
     
         return nuevoBuffer;
     }
+
+
+    //elimina los silencios del audio 
+    public ArregloNumerico eliminarSilencio(){
+        //saber cuantos ceros hay 
+        Arreglo arregloAuxiliar = bufferNumerico.buscarValores(0.0);
+        // al tamaño del bufFerNumerico le restamos  la cantidad de ceros encontrados
+        int tamaño = bufferNumerico.cantidad() - arregloAuxiliar.cantidad();
+        //creamos un arregloNumerico que sera lo que regrese los valores distentos a cero
+        ArregloNumerico arregloTemporal = new ArregloNumerico(tamaño);
+        for(int elementoArreglo =0;elementoArreglo< bufferNumerico.cantidad(); elementoArreglo++){
+            double valor = (double) bufferNumerico.obtener(elementoArreglo);
+            if (valor != 0.0){
+                arregloTemporal.poner(valor);
+            }
+        }
+        return arregloTemporal;
+    }
+
+    //hace que se escuche al reves un audio
+    public void invertirEjeX(){
+        bufferNumerico.invertir();
+    }
+
+    //invierte las fracuencias de la hoda en el eje y
+    public void invertirEjeY(){
+        for(int elementoArreglo=0; elementoArreglo<bufferNumerico.cantidad(); elementoArreglo++){
+            double valor = (double)bufferNumerico.obtener(elementoArreglo); 
+            bufferNumerico.modificar(elementoArreglo, -1*(valor)); //se modifica sobre el mismo arreglo multiplicando *-1
+        } 
+    }
+
+
+    //analiza el objeto y trata de buscar 
+    public double obtenerSenialVocal(){
+        bufferNumerico.aplicarPotencia(2);
+        return bufferNumerico.suma();
+    }
+
 
 }

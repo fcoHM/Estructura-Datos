@@ -274,4 +274,17 @@ public class ArregloNumerico extends Arreglo {
         return true;
     }
 
+
+
+    //------------------ practica 5 -----------------
+
+    //hace una suma de todo lo que esta en el arreglio 
+    public double suma(){
+        double suma = 0; //acumulador
+        for(int elemento=0;elemento<this.cantidad();elemento++){ // recorrido de arreglo 
+            suma = suma + (double)this.datos[elemento]; //obtencion de datos 
+        }
+        return suma; // resultado de la suma 
+    }
+
 }// llave final  
