@@ -8,7 +8,7 @@ public class PrincipalArreglo3D {
         Arreglo3D cubo = new Arreglo3D(5, 4, 3, 0);
 
         cubo.imprimirXcolumnas();
-        cubo.cambiarCelda(1, 2, 0, 90);
+        cubo.cambiarCelda(0, 0, 1, 90);
         cubo.imprimirXcolumnas();
         
         Object valor = cubo.obtenerCelda(1, 2, 0);

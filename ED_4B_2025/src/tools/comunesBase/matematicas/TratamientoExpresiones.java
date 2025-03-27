@@ -31,8 +31,8 @@ public class TratamientoExpresiones {
                 // el resultado esta en la pila
                 String op2 = (String) pila.quitar();
                 String op1 = (String) pila.quitar();
-                Double numero1 = Double.parseDouble(op2);
-                Double numero2 = Double.parseDouble(op1);
+                Double numero1 = Double.parseDouble(op1);
+                Double numero2 = Double.parseDouble(op2);
                 Double resultado = operacionAritmetica(token, numero1, numero2);
                 if(resultado == null){
                     return null;
@@ -68,7 +68,7 @@ public class TratamientoExpresiones {
             return false;
         }else if(token.equals(")")==true){
             return false;
-        }else if(token.equals(")")==true){
+        }else if(token.equals("-")==true){
             return false;
         }else{ // es operando
             return true;
