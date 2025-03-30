@@ -56,6 +56,7 @@ public class Arreglo2D {
     }
 
     //recupera un valor segun la posicion indicada
+    
     public Object obtener(int fila, int col){
         Object valor = datos[fila][col];
         return valor;
@@ -77,7 +78,7 @@ public class Arreglo2D {
         for(int fila=0; fila<filas; fila++){
             //recorre las columnas 
             for(int col=0;col<columnas;col++){
-                Salida.salidaPorDefecto(datos[fila][col]+"");
+                Salida.salidaPorDefecto(datos[fila][col]+" ");
             }
             Salida.salidaPorDefecto("\n");
         }
@@ -90,7 +91,7 @@ public class Arreglo2D {
         for(int col=0; col<columnas;col++){
             //recorrer filas
             for(int fila =0;fila<filas;fila++){
-                Salida.salidaPorDefecto(datos[fila][col]+"");
+                Salida.salidaPorDefecto(datos[fila][col]+" ");
             }
             Salida.salidaPorDefecto("\n");
         }

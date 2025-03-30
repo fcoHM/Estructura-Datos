@@ -287,4 +287,7 @@ public class ArregloNumerico extends Arreglo {
         return suma; // resultado de la suma 
     }
 
+    //---------------practica 7-------------
+    
+
 }// llave final  
