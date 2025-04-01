@@ -455,4 +455,13 @@ public double[] leerArreglo(){
 
 
 
+// ------listaDin
+@Override
+public Integer ponerInicio(Object valor) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'ponerInicio'");
+}
+
+
+
 }// fin clase

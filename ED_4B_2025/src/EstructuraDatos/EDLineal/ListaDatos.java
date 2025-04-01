@@ -35,4 +35,10 @@ public interface ListaDatos {
 
     public Object verFinal();
 
+    // --------------------- lista din
+    public Integer ponerInicio(Object valor);// regresa un intero por que regresa la posicion donde esta fue guardado
+    
+
+    
+
 }
