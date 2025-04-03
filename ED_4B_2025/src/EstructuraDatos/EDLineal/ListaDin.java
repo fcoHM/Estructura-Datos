@@ -1,6 +1,7 @@
 package EstructuraDatos.EDLineal;
 
 import EstructuraDatos.EDLineal.Auxiliares.Nodo;
+import EstructuraDatos.EDLineal.Auxiliares.NodoABuscar;
 import EstructuraDatos.EDLineal.pilas.PilaFija;
 import entradaSalida.Salida;
 
@@ -66,11 +67,40 @@ public class ListaDin implements ListaDatos {
         }
     }
 
+    private NodoABuscar  buscarNodo(Object valor){
+        Nodo anterior = primero;
+        Nodo encontrado = primero;
+
+        while((encontrado != null && valor.toString().equalsIgnoreCase(encontrado.getDato().toString()) )== false){
+            anterior = encontrado;
+            encontrado = encontrado.getLigaDer();
+        }
+        
+        if (encontrado != null){ //algo encontro
+            NodoABuscar retorno = new NodoABuscar();
+            retorno.setAnterior(anterior);
+            retorno.setEncontrado(encontrado);
+            return retorno;
+        }else{
+            return null;
+        }
+        
+    }
+
+
+
+
+
+
     @Override
     public Object buscar(Object valor) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'buscar'");
     }
+
+
+
+
 
     @Override
     public void imprimir() {
@@ -111,11 +141,37 @@ public class ListaDin implements ListaDatos {
 
 
     
-    @Override
+    @Override // se elimina el ultimo elemento de la lista
     public Object quitar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'quitar'");
+        if( vacio()== false){
+            Object respaldo = ultimo.getDato(); // se respalda el valor
+            if (primero == ultimo){
+                this.primero = null;
+                this.ultimo = null;
+            }else{
+                NodoABuscar busqueda = buscarNodo(ultimo.getDato()); // de aqui se se sacn los nodos anterior y 
+                busqueda.getAnterior().setLigaDer(null);
+                ultimo = busqueda.getAnterior();
+            }
+            return respaldo;
+        }else{
+            return null;
+        }
     }
+
+    // busca un elemento en la lista 
+    public Object buscarObjeto(Object valor){
+        NodoABuscar busqueda = buscarNodo(valor);
+       if(busqueda != null){
+            return busqueda.getEncontrado().getDato();
+       }else{
+        return null;
+       }
+    }
+
+
+
+
 
     @Override
     public Object quitar(Object valor) {
