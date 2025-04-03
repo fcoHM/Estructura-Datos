@@ -184,7 +184,7 @@ public class Practica8Principal {
 
 
 
-
+        /* 
         // Crear instancia de ManipuladorImagenes con la ruta de la imagen
         ManipuladorImagenes m1 = new ManipuladorImagenes("C:\\Users\\Josef\\OneDrive\\Documentos\\Mis_docs\\4toSemestre\\Estructura-Datos\\ED_4B_2025\\src\\Media\\Photos\\meme.jpg");
 
@@ -203,6 +203,71 @@ public class Practica8Principal {
 
         // Mensaje de éxito
         System.out.println("La imagen transpuesta se creó exitosamente.");
+        */
+
+
+
+
+        /*
+         // Crear instancia de ManipuladorImagenes con la ruta de la imagen
+        ManipuladorImagenes m1 = new ManipuladorImagenes("C:\\Users\\Josef\\OneDrive\\Documentos\\Mis_docs\\4toSemestre\\Estructura-Datos\\ED_4B_2025\\src\\Media\\Photos\\meme.jpg");
+
+        // Probar la función copiaImagenMatriz
+        boolean resultadoMatriz = m1.copiaImagenMatriz();
+        if (resultadoMatriz) {
+            System.out.println("La copia de la imagen a la matriz se realizó correctamente.");
+        } else {
+            System.out.println("No se pudo realizar la copia de la imagen a la matriz.");
+            return;
+        }
+
+        // Agregar un marco a la imagen
+        int grosor = 20; // Grosor del marco en píxeles
+        int color = 0xFF0000; // Color del marco (rojo en formato RGB)
+        System.out.printf("Agregando un marco de %d píxeles de grosor con color 0x%06X...\n", grosor, color);
+        boolean resultadoMargen = m1.margen(grosor, color);
+        if (resultadoMargen) {
+            System.out.println("El marco se agregó correctamente.");
+        } else {
+            System.out.println("No se pudo agregar el marco a la imagen.");
+            return;
+        }
+
+        // Mensaje de éxito
+        System.out.println("La imagen con el marco se creó exitosamente.");
+
+         */
+        
+
+
+
+        // Crear instancia de ManipuladorImagenes con la ruta de la imagen
+        ManipuladorImagenes m1 = new ManipuladorImagenes("C:\\Users\\Josef\\OneDrive\\Documentos\\Mis_docs\\4toSemestre\\Estructura-Datos\\ED_4B_2025\\src\\Media\\Photos\\meme-png.png");
+
+        // Probar la función copiaImagenMatriz
+        boolean resultadoMatriz = m1.copiaImagenMatriz();
+        if (resultadoMatriz) {
+            System.out.println("La copia de la imagen a la matriz se realizó correctamente.");
+        } else {
+            System.out.println("No se pudo realizar la copia de la imagen a la matriz.");
+            return;
+        }
+
+        // Ajustar la transparencia de la imagen
+        int intensidad = 50; // Cambia este valor para aumentar o disminuir la transparencia
+        System.out.printf("Ajustando la transparencia de la imagen en %d unidades...\n", intensidad);
+        boolean resultadoTransparencia = m1.transparencia(intensidad);
+        if (resultadoTransparencia) {
+            System.out.println("La transparencia de la imagen se ajustó correctamente.");
+        } else {
+            System.out.println("No se pudo ajustar la transparencia de la imagen.");
+            return;
+        }
+
+        // Crear la imagen resultante
+        m1.crearImagen();
+        System.out.println("La imagen con la transparencia ajustada se creó exitosamente.");
+
 
 
 

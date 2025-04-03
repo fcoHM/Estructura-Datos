@@ -80,7 +80,7 @@ public class ManipuladorImagenes {
     // crea una imagen segun la imagen2
     public void crearImagen(){
         try{
-            ImageIO.write(imagen2, "JPG", new File(nomRuta+File.separator +"copia-"+nomArchivo));
+            ImageIO.write(imagen2, "JPG", new File(nomRuta + File.separator + "copia-" + nomArchivo));
             Salida.salidaPorDefecto("se creo exitosamnete \n");
         }catch(Exception e){
             Salida.salidaPorDefecto("error:"+ e.getMessage()+"\n");
@@ -227,11 +227,90 @@ public class ManipuladorImagenes {
         }
     }
     
+    //se le aplica matriz transpuesta a la imagen matriz y se crea una imagen 
     public void transpuestaImagen(){
         imagenMatriz.transpuesta();
         BufferedImage imagenTem = new BufferedImage(h, w,BufferedImage.TYPE_INT_RGB );
         this.copiarAMatriz(imagenTem);
         crearImagen(imagenTem);
     }
+
+
+    //crear un margen
+    public boolean margen(int grosor, int color){
+
+        if (imagenMatriz == null) { //revisar que no sea null
+            return false;
+        }else{
+
+            // crear una nueva matriz con espacio para un marco
+            int nuevasFilas = imagenMatriz.getFilas() + 2 * grosor;
+            int nuevasColumnas = imagenMatriz.getColumnas() + 2 * grosor;
+            Arreglo2DNumerico nuevaMatriz = new Arreglo2DNumerico(nuevasFilas, nuevasColumnas);
+
+            // rellenar el marco con el color especificado
+            for (int fila = 0; fila < nuevasFilas; fila++) {
+                for (int col = 0; col < nuevasColumnas; col++) {
+                    //revisar  que el grosor no sea mas garnde que el numero de filas y columnas
+                    if (fila < grosor || fila >= nuevasFilas - grosor || col < grosor || col >= nuevasColumnas - grosor) {
+                        nuevaMatriz.cambiar(fila, col, color); // agregar marco
+                    } else {
+                        // copiar los valores de la imagen original al centro de la nueva matriz
+                        int valorOriginal = imagenMatriz.obtener(fila - grosor, col - grosor).intValue();
+                        nuevaMatriz.cambiar(fila, col, valorOriginal);
+                    }
+                }
+            }
+
+            // actualizar la matriz de la imagen y las dimensiones
+            this.imagenMatriz = nuevaMatriz;
+            this.h = nuevasFilas;
+            this.w = nuevasColumnas;
+
+            // crear la imagen con el marco
+            BufferedImage imagenConMargen = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+            this.copiarAMatriz(imagenConMargen);
+            crearImagen(imagenConMargen);
+            return true;
+        }
+    }
+
+
+
+    //opacidad de la imagen 
+    public boolean transparencia(int intensidad){
+        if (imagenMatriz == null){
+            return false;
+        }else{
+            for(int pixelY=0; pixelY<imagenMatriz.getFilas();pixelY++){
+                for(int pixelX=0; pixelX<imagenMatriz.getColumnas();pixelX++){
+                    //obtener pixel
+                    int pixelMatriz = imagenMatriz.obtener(pixelY, pixelX).intValue();
+                    //obtener colores
+                    int rojo = colorRed(pixelMatriz);
+                    int verde = colorGreen(pixelMatriz);
+                    int azul = colorBlue(pixelMatriz);
+                    int alfa = colorAlfa(pixelMatriz);
+
+                    int nuevoAlfa = alfa + intensidad;
+
+                    if (nuevoAlfa<0){
+                        nuevoAlfa =0;
+                    }
+                    if(nuevoAlfa >255){
+                        nuevoAlfa = 255;
+                    }
+
+                    int nuevoPixel = (nuevoAlfa<<24| rojo<<16| verde<<8|azul);
+                    imagenMatriz.cambiar(pixelY, pixelX, nuevoPixel);
+
+                }
+            }
+            this.copiaImagen2();//mandar a imagen resultado
+            return true;
+        }
+    
+    }
+
 
 }// end class
