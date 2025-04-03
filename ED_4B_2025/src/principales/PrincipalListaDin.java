@@ -14,5 +14,10 @@ public class PrincipalListaDin {
 
         Salida.salidaPorDefecto("\n");
         lista.imprimir();
+
+        Salida.salidaPorDefecto("\n buscando la m: "+lista.buscarObjeto("m")+"\n");
+        Salida.salidaPorDefecto("\n quitar final: "+ lista.quitar()+"\n");
+        lista.imprimir();
+
     }
 }

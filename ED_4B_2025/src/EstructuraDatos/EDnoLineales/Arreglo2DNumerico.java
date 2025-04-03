@@ -381,4 +381,6 @@ public class Arreglo2DNumerico extends Arreglo2D {
         }
     }
 
+   
+
 }//fin clase
