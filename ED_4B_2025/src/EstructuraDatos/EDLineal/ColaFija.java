@@ -107,7 +107,10 @@ public class ColaFija implements  LoteDatos {
 
     @Override
     public Object verTope() {
-        return null;
+        if (!vacia()) { // Verificar si la cola no está vacía
+            return datos[primero]; // Devolver el valor en la posición "primero"
+        }
+        return null; // Si la cola está vacía, devolver null
     }
     
 }

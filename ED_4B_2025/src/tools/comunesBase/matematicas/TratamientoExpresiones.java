@@ -10,7 +10,7 @@ public class TratamientoExpresiones {
     }
     // dconvertir una expresion infija en prefija
     // evaluar una expresion infija
-    public Double evaluarInfija(String infija){
+    public static Double evaluarInfija(String infija){
         String postFija = convertirInfijaPostfija(infija);
         return evaluarPosfija(postFija);
     }
