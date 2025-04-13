@@ -113,4 +113,5 @@ public class ColaFija implements  LoteDatos {
         return null; // Si la cola está vacía, devolver null
     }
     
+
 }

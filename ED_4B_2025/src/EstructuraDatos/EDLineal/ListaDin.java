@@ -9,12 +9,14 @@ public class ListaDin implements ListaDatos {
     // direcciones de memoria vista en una Clase nodo
     protected Nodo primero; 
     protected Nodo ultimo;
+    protected Nodo iterador;
 
 
     public ListaDin(){
         // se incia en mull para indicar que no hay nigun nodo
         this.primero = null;
         this.ultimo = null;
+        this.iterador = null;
     }
 
 
@@ -171,6 +173,12 @@ public class ListaDin implements ListaDatos {
 
 
 
+    
+
+
+
+
+
 
 
     @Override
@@ -285,6 +293,46 @@ public class ListaDin implements ListaDatos {
     public Object verFinal() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'verFinal'");
+    }
+
+
+
+
+
+    //recirrido de lista
+
+    @Override
+    public void iniciarIterador() {
+        iterador = primero;
+    }
+
+
+    @Override
+    public boolean iteradorValido() {
+
+        if(iterador == null){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+
+    @Override
+    public Object obtenerIterador() {
+        if(iteradorValido()==true){
+            return iterador.getDato();
+        }else{
+            return null;
+        }
+    }
+
+
+    @Override
+    public void moverseIterador() {
+        if(iteradorValido()==true){
+            iterador = iterador.getLigaDer();
+        }
     }
 
 

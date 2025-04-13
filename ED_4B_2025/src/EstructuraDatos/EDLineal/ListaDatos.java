@@ -38,7 +38,10 @@ public interface ListaDatos {
     // --------------------- lista din
     public Integer ponerInicio(Object valor);// regresa un intero por que regresa la posicion donde esta fue guardado
     
-
+    public void iniciarIterador();
+    public boolean iteradorValido();
+    public Object obtenerIterador();
+    public void moverseIterador();
     
 
 }

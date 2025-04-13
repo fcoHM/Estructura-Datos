@@ -462,6 +462,30 @@ public Integer ponerInicio(Object valor) {
     throw new UnsupportedOperationException("Unimplemented method 'ponerInicio'");
 }
 
+@Override
+public void iniciarIterador() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'iniciarIterador'");
+}
+
+@Override
+public boolean iteradorValido() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'iteradorValido'");
+}
+
+@Override
+public Object obtenerIterador() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'obtenerIterador'");
+}
+
+@Override
+public void moverseIterador() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'moverseIterador'");
+}
+
 
 
 }// fin clase

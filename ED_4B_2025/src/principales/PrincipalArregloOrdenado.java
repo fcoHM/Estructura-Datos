@@ -9,7 +9,7 @@ public class PrincipalArregloOrdenado {
 
         lista.poner("m");
         lista.poner("o");
-        lista.poner("s");
+        lista.poner("m");
         lista.poner("v");
         lista.poner("b");
         lista.imprimirDesc();

@@ -12,7 +12,7 @@ public class Vendedor {
         this.numeroVendedor = numeroVendedor;
         this.fechaNacimiento =fechaNacimiento;
     }
-
+ 
     public String getNombre() {
         return nombre;
     }
