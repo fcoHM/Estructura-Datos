@@ -42,6 +42,8 @@ public interface ListaDatos {
     public boolean iteradorValido();
     public Object obtenerIterador();
     public void moverseIterador();
+    public Object verInicio();
+    
     
 
 }

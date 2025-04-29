@@ -291,8 +291,11 @@ public class ListaDin implements ListaDatos {
 
     @Override
     public Object verFinal() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'verFinal'");
+       if (ultimo != null){
+        return ultimo.getDato();
+       }else{
+        return null;
+       }
     }
 
 
@@ -332,6 +335,16 @@ public class ListaDin implements ListaDatos {
     public void moverseIterador() {
         if(iteradorValido()==true){
             iterador = iterador.getLigaDer();
+        }
+    }
+
+
+    @Override
+    public Object verInicio() {
+        if (primero != null){
+            return primero.getDato();
+        }else{
+            return false;
         }
     }
 

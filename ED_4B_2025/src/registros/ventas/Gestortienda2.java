@@ -1,17 +1,18 @@
 package registros.ventas;
 
 import EstructuraDatos.EDLineal.Arreglo;
+import EstructuraDatos.EDLineal.ListaDin;
 import entradaSalida.Salida;
 
 public class Gestortienda2 {
     protected String nombre;
-    protected Arreglo notasVenta;
-    protected Arreglo vendedores;
+    protected ListaDin notasVenta;
+    protected ListaDin vendedores;
     
-    public Gestortienda2(int cantNotas, String nombre, int cantVendedores){
+    public Gestortienda2(String nombre){
         this.nombre = nombre;
-        notasVenta = new Arreglo(cantNotas);
-        vendedores = new Arreglo(cantVendedores);
+        notasVenta = new ListaDin();
+        vendedores = new ListaDin();
     }
 
     public boolean agregarvendedor(String nombre, String rfc, int numeroVendedor, String fechaNacimiento){
@@ -26,24 +27,26 @@ public class Gestortienda2 {
 
     public boolean agregarNota(Cliente cliente, String fecha, int cantidadArticulosVendidos){
         //tenemos cliente y fecha voy a obtener de manera interna el folio y el vendedor 
-        Vendedor vendedorTem =(Vendedor)vendedores.obtener(0);
-        NotaVenta notaTem = null;
+        Vendedor vendedorTem = (Vendedor)vendedores.verInicio();
+        
         int folioTem =0;
 
         if(vendedorTem==null){ // no hay notas
             return false;
         }
 
-        int cantidadNotasExistentes = notasVenta.cantidad();
-        if (cantidadNotasExistentes == 0){// no hay notas
+        NotaVenta notaTem = (NotaVenta)notasVenta.verFinal(); // se obtiene la nota
+       
+        if (notaTem == null){// no hay notas
             folioTem =1;
         }else{
             
-            notaTem = (NotaVenta) notasVenta.obtener(cantidadNotasExistentes-1);
+            //obtener la nota de arriba
+
             folioTem = notaTem.getFolio()+1;
         } 
 
-        NotaVenta notaNueva = new NotaVenta(cantidadArticulosVendidos, cliente, vendedorTem, fecha, folioTem);
+        NotaVenta2 notaNueva = new NotaVenta2(cliente, vendedorTem, fecha, folioTem);
         int retorno = notasVenta.poner(notaNueva);
         if(retorno<0){
             return false;
@@ -54,13 +57,12 @@ public class Gestortienda2 {
     }
     public boolean agregarArticuloNota(int folio, Articulo artComprado, int cant){
         // encontrar la nota que tenga el folio proporcionado 
-        int posicionBusqueda = (int)notasVenta.buscar(folio);
-        if (posicionBusqueda<0){
-            return false;
-        }else{
-            
+        NotaVenta2 notaTem = (NotaVenta2)notasVenta.buscarObjeto(folio); // esa nota no ta
 
-            NotaVenta notaTem = (NotaVenta) notasVenta.obtener(posicionBusqueda);
+        if (notaTem == null){
+            return false;
+        }else{// si ta la nota
+            //extraer la nota que ya se hizo
             //usamos metodo de agregra articulo 
             return notaTem.agregarArticulo(artComprado, cant);   
         }
@@ -69,13 +71,12 @@ public class Gestortienda2 {
 
     public void imprimirNota(int folio){
         // Primero encontrar la nota
-        int posicionNota = (int) this.notasVenta.buscar(folio);
+        NotaVenta2 notaTem = (NotaVenta2) notasVenta.buscarObjeto(folio);
 
-        if (posicionNota >= 0){ // Puedo impirmirla porque existe
+        if (notaTem != null){ // Puedo impirmirla porque existe
             // Obtenela
-            NotaVenta notaTemp = (NotaVenta) this.notasVenta.obtener(posicionNota);
             // Imprimirla
-            notaTemp.imprimirNota();
+            notaTem.imprimirNota();
         } else {
             return;
         }

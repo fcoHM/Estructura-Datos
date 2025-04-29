@@ -57,7 +57,7 @@ public class NotaVenta2 {
         return total;
     }
 
-
+ 
     // Metodo para imprimir la nota
     public void imprimirNota(){
         // 1. Encabezado
@@ -72,28 +72,42 @@ public class NotaVenta2 {
         Salida.salidaPorDefecto("No. art \t\t Clave \t\t Descripción \t\t Cantidad \t\t Precio U. \t\t Subtotal\n");
 
         // Imprimir los artículos
-        for (int cadaArticulo = 0; cadaArticulo < this.arcticulosVenta.cantidad(); cadaArticulo++){
-            // Mostrar el consecutivo (No. Art)
-            Salida.salidaPorDefecto("" + (cadaArticulo + 1));
-            // Extraer cada artículo y sus propiedades
-            // para imprimirlas
-            Articulo articuloTemp = (Articulo) this.arcticulosVenta.obtener(cadaArticulo);
-            Salida.salidaPorDefecto(articuloTemp.getClave() + "\t");
-            Salida.salidaPorDefecto(articuloTemp.getDescripcion() + "\t");
-            // Extraer la cantidad de cada artículo vendido
-            int cantidadTemporal = (int) cantidadArticulos.obtener(cadaArticulo);
-            Salida.salidaPorDefecto(cantidadTemporal + "\t");
+        arcticulosVenta.iniciarIterador();
+        cantidadArticulos.iniciarIterador();
 
-            // Mostrar el subtotal
-            Salida.salidaPorDefecto(articuloTemp.getPrecioUnitario() + "\t");
-            double subtotal = articuloTemp.getPrecioUnitario() * cantidadTemporal;
-            Salida.salidaPorDefecto(subtotal + "\n");
+        int cadaArticulo = 1;
+        while(arcticulosVenta.iteradorValido()==true){
+            
+             // Mostrar el consecutivo (No. Art)
+             Salida.salidaPorDefecto("" + (cadaArticulo)+ "\t\t\t");
+             // Extraer cada artículo y sus propiedades
+             // para imprimirlas
+             Articulo articuloTemp = (Articulo) this.arcticulosVenta.obtenerIterador();
+             Salida.salidaPorDefecto(articuloTemp.getClave() + "\t\t\t");
+             Salida.salidaPorDefecto(articuloTemp.getDescripcion() + "\t\t\t");
+             // Extraer la cantidad de cada artículo vendido
+             int cantidadTemporal = (int) cantidadArticulos.obtenerIterador();
+             Salida.salidaPorDefecto(cantidadTemporal + "\t\t\t");
+ 
+             // Mostrar el subtotal
+             Salida.salidaPorDefecto(articuloTemp.getPrecioUnitario() + "\t\t\t");
+             double subtotal = articuloTemp.getPrecioUnitario() * cantidadTemporal;
+             Salida.salidaPorDefecto(subtotal + "\n");
+            
 
+
+            //avanzar en lista
+            arcticulosVenta.moverseIterador();
+            cantidadArticulos.moverseIterador();
+            cadaArticulo++;
         }
+
         //
         this.total = this.calcularTotal();
-        Salida.salidaPorDefecto("\t\t\t\t" + "Total: " + this.total);
+        Salida.salidaPorDefecto("\t\t" + "Total: " + this.total);
     }
+
+
 
     @Override
     public String toString(){
@@ -103,13 +117,6 @@ public class NotaVenta2 {
         return folio;
     }
 
-    public Arreglo getArcticulosVenta() {
-        return arcticulosVenta;
-    }
-
-    public Arreglo getCantidadArticulos() {
-        return cantidadArticulos;
-    }
     
 }
 
