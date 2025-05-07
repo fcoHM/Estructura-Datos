@@ -139,8 +139,7 @@ public class Arreglo implements VectorFijo{
         if(validaPosicion(indice)== true){
             //si existe la posicion
             return datos[indice];
-        }
-        else{
+        }else{
             //no exite esa posicion
             return null;
         }
@@ -484,6 +483,12 @@ public Object obtenerIterador() {
 public void moverseIterador() {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'moverseIterador'");
+}
+
+@Override
+public Object verInicio() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'verInicio'");
 }
 
 

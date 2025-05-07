@@ -48,7 +48,7 @@ public class ArchivoTextoD {
         try {
             output = new FileWriter(archivo);
             if (arreglo != null && arreglo.cantidad() > 0) { // Verificar que el arreglo no esté vacío
-                for (int posicion = 0; posicion < 100; posicion++) {
+                for (int posicion = 0; posicion < arreglo.cantidad() -1 ; posicion++) { // arreglo.cantidad() -1  eso es para recoger hasta n cantidad de elementos
                     Object dato = arreglo.obtener(posicion);
                     if (dato != null) { // Verificar que el dato no sea nulo
                         output.write(dato.toString() + "\n");
