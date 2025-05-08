@@ -567,5 +567,96 @@ public class ListaDin implements ListaDatos {
         }
     }
 
+    
 
+
+
+
+    //-------estadistica casas personas------- se asume que son puero numeros
+
+    public double sumatoria(){
+        if(this.vacio() == true){
+            return 0;
+        }else{
+            this.iniciarIterador();
+            double suma=0;
+            while(this.iteradorValido()==true){
+                suma += Double.parseDouble(this.obtenerIterador().toString());
+                this.moverseIterador();
+            }
+            return suma;
+        }
+    }
+
+
+
+     //opetener media
+     public double media(){
+        if(this.vacio()==true){
+            return 0;
+        }else{
+            return this.sumatoria()/this.cantidad(); //la suma de la lista entre la cantidad de elementos
+        }
+    }
+
+
+
+
+    // restar el valor menos la media
+    public ListaDin valorMenosMedia(){
+        ListaDin listaTem = new ListaDin();
+        if(this.vacio()==true){
+            return listaTem;
+        }else{
+            this.iniciarIterador();
+            while(this.iteradorValido()==true){
+                double valor = Double.parseDouble(this.obtenerIterador().toString());
+                valor = valor - this.media();
+                listaTem.poner(valor);
+                this.moverseIterador();
+            }
+            return listaTem;
+        }
+    }
+
+
+    public ListaDin expoLista(){
+        ListaDin listaTem = new ListaDin();
+        if(this.vacio() == true){
+            return listaTem;
+        }else{
+            this.iniciarIterador();
+            while(this.iteradorValido()==true){
+                double valor = Double.parseDouble(this.obtenerIterador().toString());
+                valor = Math.pow(valor, 2);
+                listaTem.poner(valor);
+                this.moverseIterador();
+            }
+            return listaTem;
+        }
+    }
+
+    public ListaDin multiplicarPorLista(ListaDin lista){
+        ListaDin listaTem = new ListaDin();
+        if((this.vacio() || lista.vacio())==true){
+            return listaTem;
+        }else{
+            this.iniciarIterador();
+            lista.iniciarIterador();
+
+            while (this.iteradorValido()==true) {
+                double valorA = Double.parseDouble(this.obtenerIterador().toString());
+                double valorB = Double.parseDouble(lista.obtenerIterador().toString());
+
+                listaTem.poner(valorA*valorB);
+                this.moverseIterador();
+                lista.moverseIterador();
+            }
+            return listaTem;
+        }
+
+    }
+
+
+    
 }

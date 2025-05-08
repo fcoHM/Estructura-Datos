@@ -10,6 +10,18 @@ public class CoePearPoblacionCasas {
     protected ListaDin x; // numenro de habitacionees
     protected ListaDin y; // costo de las casas
 
+    protected double mediaX; //media de x
+    protected ListaDin Res_MedX;
+    protected ListaDin ResMedXexp;
+
+    protected double mediaY; // media de y
+    protected ListaDin Res_MedY;
+    protected ListaDin ResMedYexp;
+
+    protected ListaDin multi;
+    protected double SXY;
+    
+
     public CoePearPoblacionCasas(){
         x = new ListaDin();
         y = new ListaDin();
@@ -35,5 +47,73 @@ public class CoePearPoblacionCasas {
 
         return true;
     }
+
+    
+
+    public void medX(){
+        mediaX = this.x.media();
+    }
+    public  void medY(){
+        mediaY = this.y.media();
+    }
+
+
+    // el valor de cada pos - el valor de la media
+    public void  resMediaValorX(){
+        Res_MedX = this.x.valorMenosMedia();
+    }
+    public void resMediaValorY(){
+        Res_MedY = this.y.valorMenosMedia();
+    }
+
+    
+
+    // saplicar exp 2 a los obtneido
+
+    public double expResMediaValoX(){
+        ResMedXexp = Res_MedX.expoLista();
+        
+        return ResMedXexp.sumatoria();
+    }
+
+    public double expResMediaValoY(){
+        ResMedYexp = Res_MedY.expoLista();
+        
+        return ResMedYexp.sumatoria();
+    }
+
+    // listas exponenciadas multiplicadas
+    public double multiplicasionLista() {
+        multi = this.Res_MedX.multiplicarPorLista(this.Res_MedY); // Usar las listas originales
+        return multi.sumatoria();
+    }
+
+
+    public void iniciar(){
+        resMediaValorX();
+        resMediaValorY();
+        expResMediaValoX();
+        expResMediaValoY();
+    }
+
+
+    public double sxy() { // Covarianza
+        return multiplicasionLista() / this.Res_MedX.cantidad(); // Usar Res_MedX para la cantidad
+    }
+    
+
+    public double sx(){
+        return Math.sqrt(ResMedXexp.sumatoria()/ResMedXexp.cantidad());
+    }
+
+    public double sy(){
+        return Math.sqrt(ResMedYexp.sumatoria()/ResMedYexp.cantidad());
+    }
+
+
+    public double coeficientePearson(){
+        return (this.sxy()/(this.sx()*this.sy()));
+    }
+
 
 }
