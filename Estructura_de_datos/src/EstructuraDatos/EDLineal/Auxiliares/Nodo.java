@@ -9,11 +9,6 @@ public class Nodo {
         this.ligaDer = null; // se inicia en null la ligaDer 
     }
 
-
-
-    // metodos funcionales de la clase
-
-
     //get and set 
     public Object getDato() {
         return dato;

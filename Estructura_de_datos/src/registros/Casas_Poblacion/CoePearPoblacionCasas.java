@@ -2,7 +2,8 @@ package registros.Casas_Poblacion;
 
 import EstructuraDatos.EDLineal.Arreglo;
 import EstructuraDatos.EDLineal.ListaDin;
-import entradaSalida.Salida;
+import static registros.Casas_Poblacion.OperacionesEstadistica.*;
+
 
 import static entradaSalida.ArchivoTextoD.*;
 
@@ -10,17 +11,6 @@ public class CoePearPoblacionCasas {
     protected ListaDin x; // numenro de habitacionees
     protected ListaDin y; // costo de las casas
 
-    protected double mediaX; //media de x
-    protected ListaDin Res_MedX;
-    protected ListaDin ResMedXexp;
-
-    protected double mediaY; // media de y
-    protected ListaDin Res_MedY;
-    protected ListaDin ResMedYexp;
-
-    protected ListaDin multi;
-    protected double SXY;
-    
 
     public CoePearPoblacionCasas(){
         x = new ListaDin();
@@ -48,72 +38,42 @@ public class CoePearPoblacionCasas {
         return true;
     }
 
-    
-
-    public void medX(){
-        mediaX = this.x.media();
-    }
-    public  void medY(){
-        mediaY = this.y.media();
-    }
-
-
-    // el valor de cada pos - el valor de la media
-    public void  resMediaValorX(){
-        Res_MedX = this.x.valorMenosMedia();
-    }
-    public void resMediaValorY(){
-        Res_MedY = this.y.valorMenosMedia();
-    }
-
-    
-
-    // saplicar exp 2 a los obtneido
-
-    public double expResMediaValoX(){
-        ResMedXexp = Res_MedX.expoLista();
-        
-        return ResMedXexp.sumatoria();
-    }
-
-    public double expResMediaValoY(){
-        ResMedYexp = Res_MedY.expoLista();
-        
-        return ResMedYexp.sumatoria();
-    }
-
-    // listas exponenciadas multiplicadas
-    public double multiplicasionLista() {
-        multi = this.Res_MedX.multiplicarPorLista(this.Res_MedY); // Usar las listas originales
-        return multi.sumatoria();
-    }
-
-
-    public void iniciar(){
-        resMediaValorX();
-        resMediaValorY();
-        expResMediaValoX();
-        expResMediaValoY();
-    }
-
-
-    public double sxy() { // Covarianza
-        return multiplicasionLista() / this.Res_MedX.cantidad(); // Usar Res_MedX para la cantidad
-    }
-    
-
-    public double sx(){
-        return Math.sqrt(ResMedXexp.sumatoria()/ResMedXexp.cantidad());
-    }
-
-    public double sy(){
-        return Math.sqrt(ResMedYexp.sumatoria()/ResMedYexp.cantidad());
+    //obtener la cantidad N de elementos
+    public int obtenerCantidad(){
+        if((this.x.vacio() || this.y.vacio()) == true){
+            return -1; //alguna esta vacia
+        }else if((this.x.cantidad()==this.y.cantidad())==true){
+            return this.x.cantidad(); //regresa el tamaño de alguna
+        }else{
+            return -1; //no tienen el mismo tamaño
+        }
     }
 
 
     public double coeficientePearson(){
-        return (this.sxy()/(this.sx()*this.sy()));
+
+        /*
+          return (obtenerCantidad()* sumatoria(multiplicasionListas(x, y)) - (sumatoria(x)*sumatoria(y)))
+        / Math.sqrt((obtenerCantidad()*sumatoria(exponente(x)))- sumatoria(exponente(x)) * (obtenerCantidad()*sumatoria(exponente(y)))- sumatoria(exponente(y)));
+         */
+
+         //se cambio por que de la otra manera daba NaN
+        int N = obtenerCantidad();
+        double sumX = sumatoria(x);
+        double sumY = sumatoria(y);
+        double sumXY = sumatoria(multiplicasionListas(x, y));
+        double sumX2 = sumatoria(exponente(x));
+        double sumY2 = sumatoria(exponente(y));
+
+        double numerador = N * sumXY - sumX * sumY;
+        double denominador = Math.sqrt((N * sumX2 - sumX * sumX) * (N * sumY2 - sumY * sumY));
+        if (denominador == 0) {
+           return 0;
+        }
+        return numerador / denominador;
     }
+
+
 
 
 }

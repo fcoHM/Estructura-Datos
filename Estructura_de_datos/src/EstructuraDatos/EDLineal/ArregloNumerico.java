@@ -289,5 +289,21 @@ public class ArregloNumerico extends Arreglo {
 
     //---------------practica 7-------------
     
-
+    public ArregloNumerico convertirAArregloNumerico(Arreglo arreglo){
+        if (arreglo == null || arreglo.vacio()) {
+        return null; 
+        }
+         ArregloNumerico arregloNumericoConvertido = new ArregloNumerico(arreglo.cantidad());
+        for (int indice = 0; indice < arreglo.cantidad(); indice++) {
+            Object elementoActual = Double.parseDouble(arreglo.obtener(indice).toString());
+            if (elementoActual instanceof Number) {
+                arregloNumericoConvertido.poner(elementoActual); // Agregar el elemento al ArregloNumerico
+            } 
+        }
+        if(arregloNumericoConvertido.vacio()==true){
+            return null;
+        }else{
+            return arregloNumericoConvertido;
+        }
+    }
 }// llave final  

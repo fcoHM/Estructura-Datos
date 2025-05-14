@@ -1,0 +1,23 @@
+Jose Francisco Hurtado Muro 4B
+
+--todas las las direcciones son los pacakeges en los que se encuentra el archivo o la clase
+
+PRINCIPAL EXAMEN:
+//Main
+PruebaRegrecionLineal ---------> EstructuraDatos.examenes.examen1
+
+//Clase con logica de los metodos del examen
+PredicionLineal ----------> EstructuraDatos.examenes.examen1
+
+
+
+
+CLASES UTILIZADAS:
+//Metodos de almacenamiento
+ArregloNumerico  --------> EstructuraDatos.EDLineal
+
+//Entrada y sallida de texto
+Entrada -----------> entradaSalida
+
+//Lector  de archivos txt
+ArchivoTexto ---------------> entradaSalida
