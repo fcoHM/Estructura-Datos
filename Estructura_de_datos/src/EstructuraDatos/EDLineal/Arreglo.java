@@ -49,7 +49,15 @@ public class Arreglo implements VectorFijo{
         }
     }
 
-
+ // Nuevo método ponerEn
+  public boolean ponerEn(int indice, Object valor) {
+    if (indice >= 0 && indice < datos.length) {
+        datos[indice] = valor;
+        return true;
+    } else {
+        return false;
+    }
+}
 
     @Override // se hace la busqueda de un objeto dentro del arreglo y lo retorna 
     public Object buscar(Object valor){
@@ -134,6 +142,7 @@ public class Arreglo implements VectorFijo{
     }
 
     //--------------------------------------------------------------------------------------------------------
+   /* 
     @Override // este metodo obtiene un objeto del arreglo indicado por la posicion del indice 
     public Object obtener(int indice) {
         if(validaPosicion(indice)== true){
@@ -144,7 +153,15 @@ public class Arreglo implements VectorFijo{
             return null;
         }
     }
-
+    */
+    @Override // este metodo obtiene un objeto del arreglo indicado por la posicion del indice 
+    public Object obtener(int indice) {
+        if (indice >= 0 && indice < datos.length) { // Permite acceder a todo el arreglo físico
+            return datos[indice];
+        } else {
+            return null;
+        }
+    }
     @Override //saber si la lista es igual a otra 
     public boolean esIgual(ListaDatos lista2) { //se recibe una lista secundaria
         Arreglo arreglo =(Arreglo) lista2; //se hace un casting a la lista ingresada
