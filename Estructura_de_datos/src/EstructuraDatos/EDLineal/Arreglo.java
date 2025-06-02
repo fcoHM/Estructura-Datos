@@ -4,7 +4,7 @@ import entradaSalida.Salida;
 
 public class Arreglo implements VectorFijo{
 
-    protected Object datos[];
+    public Object datos[];
     protected int capacidad;
     protected int indiceSuperior;
 
@@ -259,14 +259,14 @@ public class Arreglo implements VectorFijo{
       return ocurrencias;
     }
 
-    @Override //se quitara el elemento que se encuentre en eñ indice deseado 
+   @Override //se quitara el elemento que se encuentre en el indice deseado 
     public Object quitar(int indice){
         if (indice>=0 && indice<=indiceSuperior){
-            Object dato = datos[indice]; //se le resta 1 por que el usuario lo ve de 1 hasta n elementos y no desde el 0
-            for(int modificaion = indice; modificaion <= indiceSuperior; modificaion ++){ 
-                datos[modificaion] = datos[modificaion + 1]; //se hace el movimiento de elementos para no dejar espacios vaciaos o nulos 
+            Object dato = datos[indice];
+            for(int modificaion = indice; modificaion < indiceSuperior; modificaion++) { 
+                datos[modificaion] = datos[modificaion + 1];
             }
-            indiceSuperior --; //se le resta 1 ya que eliminamos un datos y los elmentos bajan un puesto
+            indiceSuperior --;
             return dato;
         }else{
             return null;
@@ -281,21 +281,12 @@ public class Arreglo implements VectorFijo{
     
     @Override // combina dos listas en una nueva con la medida exacta
     public boolean agregarLista(ListaDatos lista2){
-        Arreglo arreglo = (Arreglo)lista2;
-        if (lista2 instanceof Arreglo){
-            int elementos = this.indiceSuperior+1 + arreglo.indiceSuperior+1;
-            Arreglo listaNueva = new Arreglo(elementos);
-            for(int indiceArreglo =0; indiceArreglo<=this.indiceSuperior;indiceArreglo++){
-                listaNueva.poner(this.datos[indiceArreglo]);
-            }
-            for (int indiceArreglo =0; indiceArreglo<=arreglo.indiceSuperior;indiceArreglo++){
-                listaNueva.poner(arreglo.datos[indiceArreglo]);
-            }
-            
-            return true;
-        }else{
-            return false;
+        if (!(lista2 instanceof Arreglo)) return false;
+        Arreglo arreglo = (Arreglo) lista2;
+        for (int i = 0; i <= arreglo.indiceSuperior; i++) {
+            this.poner(arreglo.datos[i]);
         }
+        return true;
     }
 
     @Override // invierte los valores de una lista 

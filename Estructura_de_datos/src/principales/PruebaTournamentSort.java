@@ -7,7 +7,7 @@ import entradaSalida.Salida;
 
 public class PruebaTournamentSort {
    public static void main(String[] args) {
-        Arreglo arreglo = new Arreglo(12);
+        Arreglo arreglo = new Arreglo(13);
         arreglo.poner(10);
         arreglo.poner(4);
         arreglo.poner(12);
@@ -16,6 +16,7 @@ public class PruebaTournamentSort {
         arreglo.poner(1);
         arreglo.poner(7);
         arreglo.poner(8);
+        arreglo.poner(6);
         arreglo.poner(6);
         arreglo.poner(11);
         arreglo.poner(5);

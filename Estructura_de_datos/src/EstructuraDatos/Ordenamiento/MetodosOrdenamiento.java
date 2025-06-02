@@ -1,87 +1,80 @@
 package EstructuraDatos.Ordenamiento;
 
 import EstructuraDatos.EDLineal.Arreglo;
+import EstructuraDatos.EDLineal.Auxiliares.NodoTorneo;
 
 public class MetodosOrdenamiento {
 
-    public static Arreglo tournamentSort(Arreglo arregloOriginal) {
+   public static Arreglo tournamentSort(Arreglo arregloOriginal) {
         int cantidadElementos = arregloOriginal.cantidad();
         Arreglo arregloOrdenado = new Arreglo(cantidadElementos);
 
-        // Paso 1 se crea el arbol binario 
-        int tamañoArbol = 2 * cantidadElementos - 1;
-        Arreglo arbolTorneo = new Arreglo(tamañoArbol); // Tamaño del árbol completo
+        int tamañoArbolTorneo = 2 * cantidadElementos - 1;
+        Arreglo arbolTorneo = new Arreglo(tamañoArbolTorneo);
 
-        // inicia las hojas del arbol con lo primeros datos 
-        for (int indiceHoja = 0; indiceHoja < cantidadElementos; indiceHoja++) {
-            arbolTorneo.ponerEn(cantidadElementos - 1 + indiceHoja, arregloOriginal.obtener(indiceHoja)); // Hojas del árbol
+        // 1. Colocar los elementos del arreglo original como hojas del árbol
+        for (int indiceElemento = 0; indiceElemento < cantidadElementos; indiceElemento++) {
+            int valorElemento = (Integer) arregloOriginal.obtener(indiceElemento);
+            arbolTorneo.ponerEn(cantidadElementos - 1 + indiceElemento, new NodoTorneo(valorElemento, indiceElemento));
         }
 
-        // llenar los nodos internos del árbol 
+        // 2. Construir nodos internos (el torneo)
         for (int indiceNodoInterno = cantidadElementos - 2; indiceNodoInterno >= 0; indiceNodoInterno--) {
-            int indiceHijoIzquierdo = 2 * indiceNodoInterno + 1;
-            int indiceHijoDerecho = 2 * indiceNodoInterno + 2;
+            NodoTorneo nodoIzquierdo = (NodoTorneo) arbolTorneo.obtener(2 * indiceNodoInterno + 1);
+            NodoTorneo nodoDerecho = (NodoTorneo) arbolTorneo.obtener(2 * indiceNodoInterno + 2);
 
-            Object valorHijoIzquierdo = arbolTorneo.obtener(indiceHijoIzquierdo);
-            Object valorHijoDerecho = arbolTorneo.obtener(indiceHijoDerecho);
-            // determinar cuál hijo es menor y ponerlo en el padre
-            if (valorHijoIzquierdo == null && valorHijoDerecho == null) {
+            if (nodoIzquierdo == null && nodoDerecho == null) {
                 arbolTorneo.ponerEn(indiceNodoInterno, null);
-            } else if (valorHijoIzquierdo == null) {
-                arbolTorneo.ponerEn(indiceNodoInterno, valorHijoDerecho);
-            } else if (valorHijoDerecho == null) {
-                arbolTorneo.ponerEn(indiceNodoInterno, valorHijoIzquierdo);
+            } else if (nodoIzquierdo == null) {
+                arbolTorneo.ponerEn(indiceNodoInterno, nodoDerecho);
+            } else if (nodoDerecho == null) {
+                arbolTorneo.ponerEn(indiceNodoInterno, nodoIzquierdo);
             } else {
-
-                int valorIzquierdo = (Integer) valorHijoIzquierdo;
-                int valorDerecho = (Integer) valorHijoDerecho;
-                if (valorIzquierdo < valorDerecho) {
-                    arbolTorneo.ponerEn(indiceNodoInterno, valorHijoIzquierdo);
+                // Comparar por valor
+                if (nodoIzquierdo.valor <= nodoDerecho.valor) {
+                    arbolTorneo.ponerEn(indiceNodoInterno, nodoIzquierdo);
                 } else {
-                    arbolTorneo.ponerEn(indiceNodoInterno, valorHijoDerecho);
+                    arbolTorneo.ponerEn(indiceNodoInterno, nodoDerecho);
                 }
             }
         }
 
-        // hacer los torneos y ir sacando las raices/ganadores 
-        for (int iteracionOrdenamiento = 0; iteracionOrdenamiento < cantidadElementos; iteracionOrdenamiento++) {
-            arregloOrdenado.poner(arbolTorneo.obtener(0)); // el ganador del torneo se agrega a la salida
+        // 3. Extraer ordenadamente los elementos
+        for (int iteracionExtraccion = 0; iteracionExtraccion < cantidadElementos; iteracionExtraccion++) {
+            NodoTorneo nodoGanador = (NodoTorneo) arbolTorneo.obtener(0);
+            arregloOrdenado.poner(nodoGanador.valor);  // Agregar valor ordenado
 
-            // sacar al ganador del torneo ---> hacerlo null
-            int indiceGanador = -1;
-            for (int indiceHoja = cantidadElementos - 1; indiceHoja < tamañoArbol; indiceHoja++) {
-                if (arbolTorneo.obtener(indiceHoja) != null && arbolTorneo.obtener(indiceHoja).equals(arbolTorneo.obtener(0))) {
-                    indiceGanador = indiceHoja;
-                    break;
-                }
-            }
+            // Eliminar la hoja exacta donde estaba ese valor
+            int indiceHojaGanadora = cantidadElementos - 1 + nodoGanador.indiceOriginal;
+            arbolTorneo.ponerEn(indiceHojaGanadora, null);
 
-            arbolTorneo.ponerEn(indiceGanador, null); //eliminar ganador 
-
-            // reconstruir el árbol después de eliminar el ganador
-            int indicePadre = (indiceGanador - 1) / 2;
+            // Reconstruir el árbol desde esa hoja hacia arriba
+            int indicePadre = (indiceHojaGanadora - 1) / 2;
             while (indicePadre >= 0) {
+                NodoTorneo nodoHijoIzquierdo = null, nodoHijoDerecho = null;
+
                 int indiceHijoIzquierdo = 2 * indicePadre + 1;
                 int indiceHijoDerecho = 2 * indicePadre + 2;
 
-                Object valorHijoIzquierdo = arbolTorneo.obtener(indiceHijoIzquierdo);
-                Object valorHijoDerecho = arbolTorneo.obtener(indiceHijoDerecho);
+                if (indiceHijoIzquierdo < tamañoArbolTorneo)
+                    nodoHijoIzquierdo = (NodoTorneo) arbolTorneo.obtener(indiceHijoIzquierdo);
+                if (indiceHijoDerecho < tamañoArbolTorneo)
+                    nodoHijoDerecho = (NodoTorneo) arbolTorneo.obtener(indiceHijoDerecho);
 
-                if (valorHijoIzquierdo == null && valorHijoDerecho == null) {
+                if (nodoHijoIzquierdo == null && nodoHijoDerecho == null) {
                     arbolTorneo.ponerEn(indicePadre, null);
-                } else if (valorHijoIzquierdo == null) {
-                    arbolTorneo.ponerEn(indicePadre, valorHijoDerecho);
-                } else if (valorHijoDerecho == null) {
-                    arbolTorneo.ponerEn(indicePadre, valorHijoIzquierdo);
+                } else if (nodoHijoIzquierdo == null) {
+                    arbolTorneo.ponerEn(indicePadre, nodoHijoDerecho);
+                } else if (nodoHijoDerecho == null) {
+                    arbolTorneo.ponerEn(indicePadre, nodoHijoIzquierdo);
                 } else {
-                    int valorIzquierdo = (Integer) valorHijoIzquierdo;
-                    int valorDerecho = (Integer) valorHijoDerecho;
-                    if (valorIzquierdo < valorDerecho) {
-                        arbolTorneo.ponerEn(indicePadre, valorHijoIzquierdo);
+                    if (nodoHijoIzquierdo.valor <= nodoHijoDerecho.valor) {
+                        arbolTorneo.ponerEn(indicePadre, nodoHijoIzquierdo);
                     } else {
-                        arbolTorneo.ponerEn(indicePadre, valorHijoDerecho);
+                        arbolTorneo.ponerEn(indicePadre, nodoHijoDerecho);
                     }
                 }
+
                 if (indicePadre == 0) break;
                 indicePadre = (indicePadre - 1) / 2;
             }
