@@ -1,6 +1,6 @@
 package EstructuraDatos.TrabajoFinal.Registros;
 //base de cualquier objeto
-public abstract class ObjetoComparable<T> {
+public abstract class ObjetoComparable {
     public double parametro1;
     public double parametro2;
     public String nombre;
